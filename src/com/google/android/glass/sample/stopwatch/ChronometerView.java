@@ -176,8 +176,8 @@ public class ChronometerView extends FrameLayout {
         	counter++;
         	counter %= words.length;
         }
-        
-        mSubtitleView.setText(words[counter]);
+        mBaseMillis = millis;
+        mSubtitleView.setText("My Name is George \n and I like to move it move it");
 
         if (mChangeListener != null) {
             mChangeListener.onChange();

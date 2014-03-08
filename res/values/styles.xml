@@ -16,11 +16,7 @@
 
 <resources>
     <style name="ChronometerComponent">
-        <item name="android:layout_width">360px</item>
-        <item name="android:layout_height">640px</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">70px</item>
+        
     </style>
 
     <style name="ChronometerIcon">
