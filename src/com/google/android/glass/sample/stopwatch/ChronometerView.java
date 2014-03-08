@@ -50,6 +50,9 @@ public class ChronometerView extends FrameLayout {
     private boolean mForceStart;
     private boolean mVisible;
     private boolean mRunning;
+    
+    private String[] words = {"Hi","My","Name","Is","George"};
+    private int counter = 0;
 
     private long mBaseMillis;
 
@@ -108,6 +111,8 @@ public class ChronometerView extends FrameLayout {
      */
     public void start() {
         mStarted = true;
+        counter = 0;
+        words = new String[] {"Hi","My","Name","Is","George"};
         updateRunning();
     }
 
@@ -167,10 +172,12 @@ public class ChronometerView extends FrameLayout {
     private void updateText() {
         long millis = SystemClock.elapsedRealtime() - mBaseMillis;
         // Cap chronometer to one hour.
-        if(millis > 10000)
-        {
-        	mSubtitleView.setText(String.format("%02d", TimeUnit.MILLISECONDS.toMinutes(millis)));
+        if(millis > 10000){
+        	counter++;
+        	counter %= words.length;
         }
+        
+        mSubtitleView.setText(words[counter]);
 
         if (mChangeListener != null) {
             mChangeListener.onChange();
