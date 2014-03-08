@@ -53,6 +53,11 @@ public class LiveCardDemoLocalService extends Service
 
     // "Heart beat".
     private Timer heartBeat = null;
+    
+    
+    String[]  testList = {"test","test2","test3"};
+    int i = 0;
+    String liveString;
 
 
     // No need for IPC...
@@ -82,6 +87,8 @@ public class LiveCardDemoLocalService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         Log.i("Received start id " + startId + ": " + intent);
+        
+        
         onServiceStart();
         return START_STICKY;
     }
@@ -211,9 +218,10 @@ public class LiveCardDemoLocalService extends Service
             // testing
             long now = System.currentTimeMillis();
             
-            content = "Updated: " + now;
+            content = "Updated: " + liveString;
             // ...
 
+            liveCard.setDirectRenderingEnabled(true);
             remoteViews.setCharSequence(R.id.livecard_content, "setText", content);
             liveCard.setViews(remoteViews);
 
@@ -222,15 +230,16 @@ public class LiveCardDemoLocalService extends Service
             Intent intent = new Intent(context, LiveCardDemoActivity.class);
             liveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
             // Is this if() necessary???? or Is it allowed/ok not to call publish() when updating????
-            if(! liveCard.isPublished()) {
-                liveCard.publish(LiveCard.PublishMode.REVEAL);
-            } else {
-                // ????
-                // According to the doc,
-                // it appears we should call publish() every time the content changes...
-                // But, it seems to work without re-publishing...
-                if(Log.D) Log.d("liveCard not published at " + now);
-            }
+            liveCard.publish(LiveCard.PublishMode.REVEAL);
+//            if(! liveCard.isPublished()) {
+//                liveCard.publish(LiveCard.PublishMode.REVEAL);
+//            } else {
+//                // ????
+//                // According to the doc,
+//                // it appears we should call publish() every time the content changes...
+//                // But, it seems to work without re-publishing...
+//                if(Log.D) Log.d("liveCard not published at " + now);
+//            }
         }
     }
 
@@ -254,17 +263,26 @@ public class LiveCardDemoLocalService extends Service
                     public void run() {
                         try {
                         	Log.e("timer updated");
+                        	updateText();
                             updateCard(LiveCardDemoLocalService.this);
+                            i++;
                         } catch (Exception e) {
                             Log.e("Failed to run the task.", e);
                         }
                     }
+
+					
                 });
             }
         };
         heartBeat.schedule(liveCardUpdateTask, nextSubTime);
     }
 
-
+    private void updateText() {
+    	if (i > testList.length) {
+    		i = 0;
+    	}
+    	liveString = testList[i];
+	}
 
 }
