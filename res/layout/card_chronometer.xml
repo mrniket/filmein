@@ -23,21 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
         <TextView
-            android:id="@+id/minute"
-            style="@style/ChronometerComponent" />
-        <ImageView
-            android:src="@drawable/ic_colon"
-            style="@style/ChronometerIcon" />
-        <TextView
-            android:id="@+id/second"
-            style="@style/ChronometerComponent" />
-        <ImageView
-            android:src="@drawable/ic_interpunc"
-            style="@style/ChronometerIcon" />
-        <TextView
-            android:id="@+id/centi_second"
+            android:id="@+id/subtitle_target"
             style="@style/ChronometerComponent" />
     </LinearLayout>
 </FrameLayout>

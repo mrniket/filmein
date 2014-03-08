@@ -44,9 +44,7 @@ public class ChronometerView extends FrameLayout {
     // About 24 FPS.
     private static final long DELAY_MILLIS = 41;
 
-    private final TextView mMinuteView;
-    private final TextView mSecondView;
-    private final TextView mCentiSecondView;
+    private final TextView mSubtitleView;
 
     private boolean mStarted;
     private boolean mForceStart;
@@ -69,9 +67,7 @@ public class ChronometerView extends FrameLayout {
         super(context, attrs, style);
         LayoutInflater.from(context).inflate(R.layout.card_chronometer, this);
 
-        mMinuteView = (TextView) findViewById(R.id.minute);
-        mSecondView = (TextView) findViewById(R.id.second);
-        mCentiSecondView = (TextView) findViewById(R.id.centi_second);
+        mSubtitleView = (TextView) findViewById(R.id.subtitle_target);
 
         setBaseMillis(SystemClock.elapsedRealtime());
     }
@@ -171,13 +167,11 @@ public class ChronometerView extends FrameLayout {
     private void updateText() {
         long millis = SystemClock.elapsedRealtime() - mBaseMillis;
         // Cap chronometer to one hour.
-        millis %= TimeUnit.HOURS.toMillis(1);
+        if(millis > 10000)
+        {
+        	mSubtitleView.setText(String.format("%02d", TimeUnit.MILLISECONDS.toMinutes(millis)));
+        }
 
-        mMinuteView.setText(String.format("%02d", TimeUnit.MILLISECONDS.toMinutes(millis)));
-        millis %= TimeUnit.MINUTES.toMillis(1);
-        mSecondView.setText(String.format("%02d", TimeUnit.MILLISECONDS.toSeconds(millis)));
-        millis = (millis % TimeUnit.SECONDS.toMillis(1)) / 10;
-        mCentiSecondView.setText(String.format("%02d", millis));
         if (mChangeListener != null) {
             mChangeListener.onChange();
         }
