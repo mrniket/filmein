@@ -16,18 +16,22 @@
 
 package com.google.android.glass.sample.stopwatch;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import us.monoid.web.Resty;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 import com.google.android.glass.timeline.TimelineManager;
+
 
 /**
  * Service owning the LiveCard living in the timeline.
@@ -36,7 +40,6 @@ public class StopwatchService extends Service {
 
     private static final String TAG = "StopwatchService";
     private static final String LIVE_CARD_TAG = "stopwatch";
-    private static final String URL = "http://localhost:8081";
 
     private ChronometerDrawer mCallback;
 
@@ -60,13 +63,9 @@ public class StopwatchService extends Service {
             Log.d(TAG, "Publishing LiveCard");
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_TAG);
             
-            try {
-				Resty data = new Resty().json("http://localhost:8081");
-				Log.d("DBG", data.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            new ASyncGetData().execute();
+            
+            Log.e("hello", "world");
 
             // Keep track of the callback to remove it before unpublishing.
             mCallback = new ChronometerDrawer(this);
@@ -83,6 +82,49 @@ public class StopwatchService extends Service {
         }
 
         return START_STICKY;
+    }
+    
+    private class ASyncGetData extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			try {
+				String url = "http://ip.jsontest.com/";
+				 
+				URL obj = new URL(url);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		 
+				// optional default is GET
+				con.setRequestMethod("GET");
+		 
+				//add request header
+		 
+				int responseCode = con.getResponseCode();
+				System.out.println("\nSending 'GET' request to URL : " + url);
+				System.out.println("Response Code : " + responseCode);
+		 
+				BufferedReader in = new BufferedReader(
+				        new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+		 
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+		 
+				//print result
+				Log.d("niket", response.toString());
+//				JSONObject jsonObj = new JSONObject(response.toString());
+				return response.toString();
+		 
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+			
+		}
+    	
     }
     
 

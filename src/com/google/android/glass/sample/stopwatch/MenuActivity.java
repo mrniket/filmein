@@ -38,6 +38,7 @@ public class MenuActivity extends Activity {
         super.onResume();
         openOptionsMenu();
     }
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
