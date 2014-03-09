@@ -22,6 +22,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -70,6 +72,8 @@ public class StopwatchService extends Service {
             ArrayList<String> voiceResults = intent.getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
             
             Log.d("speech", voiceResults.toString());
+            
+            new ASyncGetData().execute(voiceResults.toArray(new String[voiceResults.size()]));
 
             // Keep track of the callback to remove it before unpublishing.
             mCallback = new ChronometerDrawer(this);
@@ -88,12 +92,16 @@ public class StopwatchService extends Service {
         return START_STICKY;
     }
     
-    private class ASyncGetData extends AsyncTask<Void, Void, String> {
+    private class ASyncGetData extends AsyncTask<String, Void, JSONObject> {
 
 		@Override
-		protected String doInBackground(Void... params) {
+		protected JSONObject doInBackground(String... params) {
 			try {
-				String url = "http://ip.jsontest.com/";
+				String movie = "";
+				for (String s : params) {
+					movie += s.replace(" ", "%20");
+				}
+				String url = "http://acompany.herokuapp.com/api/getFilm/" + movie;
 				 
 				URL obj = new URL(url);
 				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -118,9 +126,9 @@ public class StopwatchService extends Service {
 				in.close();
 		 
 				//print result
-				Log.d("niket", response.toString());
-//				JSONObject jsonObj = new JSONObject(response.toString());
-				return response.toString();
+				Log.d("movie", response.toString());
+				JSONObject jsonObj = new JSONObject(response.toString());
+				return jsonObj;
 		 
 			} catch (Exception e) {
 				e.printStackTrace();
