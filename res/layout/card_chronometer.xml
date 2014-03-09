@@ -19,26 +19,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black" >
+<<<<<<< HEAD
+    android:background="#000000" 
+    android:keepScreenOn="true">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
         <TextView
-            android:id="@+id/minute"
-            style="@style/ChronometerComponent" />
-        <ImageView
-            android:src="@drawable/ic_colon"
-            style="@style/ChronometerIcon" />
-        <TextView
-            android:id="@+id/second"
-            style="@style/ChronometerComponent" />
-        <ImageView
-            android:src="@drawable/ic_interpunc"
-            style="@style/ChronometerIcon" />
-        <TextView
-            android:id="@+id/centi_second"
-            style="@style/ChronometerComponent" />
+            android:id="@+id/subtitle_target"
+            android:textColor="#FFFFFF"
+            android:shadowColor="#000000"
+            android:shadowDx="0.0"
+            android:shadowDy="0.0"
+            android:shadowRadius="2.0"
+            android:layout_width="640px"
+            android:layout_height="360px"
+            android:gravity="center"
+            android:textSize="60px"
+            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>

@@ -20,11 +20,9 @@ public final class R {
         public static final int ic_stop=0x7f020003;
     }
     public static final class id {
-        public static final int centi_second=0x7f0a0002;
-        public static final int minute=0x7f0a0000;
-        public static final int second=0x7f0a0001;
-        public static final int seconds_view=0x7f0a0003;
-        public static final int stop=0x7f0a0004;
+        public static final int seconds_view=0x7f0a0001;
+        public static final int stop=0x7f0a0002;
+        public static final int subtitle_target=0x7f0a0000;
     }
     public static final class layout {
         public static final int card_chronometer=0x7f030000;
