@@ -35,9 +35,9 @@ public class MenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+        ArrayList<String> voiceResults = getIntent().getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
         
-//        Log.d("speech", voiceResults.toString());
+        Log.d("speech", voiceResults.toString());
         Log.d("miten", "hello world");
     }
 

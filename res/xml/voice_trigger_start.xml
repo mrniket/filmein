@@ -14,4 +14,6 @@
      limitations under the License.
 -->
 
-<trigger keyword="@string/start_stopwatch" />
+<trigger keyword="@string/start_stopwatch">
+    <input prompt="@string/fillmein_prompt"/>
+</trigger>

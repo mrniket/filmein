@@ -20,12 +20,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 
 import com.google.android.glass.timeline.LiveCard;
@@ -65,7 +67,9 @@ public class StopwatchService extends Service {
             
 //            new ASyncGetData().execute();
             
+            ArrayList<String> voiceResults = intent.getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
             
+            Log.d("speech", voiceResults.toString());
 
             // Keep track of the callback to remove it before unpublishing.
             mCallback = new ChronometerDrawer(this);
