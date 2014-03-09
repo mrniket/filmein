@@ -20,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -64,9 +63,8 @@ public class StopwatchService extends Service {
             Log.d(TAG, "Publishing LiveCard");
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_TAG);
             
-            new ASyncGetData().execute();
+//            new ASyncGetData().execute();
             
-            Log.e("hello", "world");
             
 
             // Keep track of the callback to remove it before unpublishing.
